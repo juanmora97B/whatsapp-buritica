@@ -1,5 +1,6 @@
 ﻿require('dotenv').config()
 const { Client, LocalAuth } = require('whatsapp-web.js')
+const puppeteer = require('puppeteer')
 const qrcode = require('qrcode-terminal')
 const supabase = require('./supabase')
 const numeral = require('numeral')
@@ -7,13 +8,22 @@ const cron = require('node-cron')
 const fs = require('fs')
 const path = require('path')
 
+const PUPPETEER_ARGS = [
+  '--no-sandbox',
+  '--disable-setuid-sandbox',
+  '--disable-dev-shm-usage',
+  '--disable-gpu',
+  '--single-process'
+]
+
 const client = new Client({
   authStrategy: new LocalAuth({
     dataPath: './session'
   }),
   puppeteer: {
+    executablePath: puppeteer.executablePath(),
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: PUPPETEER_ARGS
   }
 })
 
@@ -630,3 +640,4 @@ function subscribeVentas() {
 
 subscribeVentas()
 startReminderSchedule()
+
