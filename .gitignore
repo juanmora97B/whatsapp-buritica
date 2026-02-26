@@ -2,5 +2,6 @@
 node_modules/
 .wwebjs_auth/
 .wwebjs_cache/
+session/
 .bot_state.json
 *.log

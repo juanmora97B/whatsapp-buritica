@@ -8,14 +8,16 @@ const fs = require('fs')
 const path = require('path')
 
 const client = new Client({
-  authStrategy: new LocalAuth(),
+  authStrategy: new LocalAuth({
+    dataPath: './session'
+  }),
   puppeteer: {
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   }
 })
 
-const sessionDir = path.join(process.cwd(), '.wwebjs_auth', 'session')
+const sessionDir = path.join(process.cwd(), 'session')
 if (fs.existsSync(sessionDir)) {
   ;['SingletonLock', 'DevToolsActivePort'].forEach((f) => {
     const p = path.join(sessionDir, f)
