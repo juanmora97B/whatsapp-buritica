@@ -21,7 +21,7 @@ const client = new Client({
     dataPath: './session'
   }),
   puppeteer: {
-    executablePath: puppeteer.executablePath(),
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
     headless: true,
     args: PUPPETEER_ARGS
   }
